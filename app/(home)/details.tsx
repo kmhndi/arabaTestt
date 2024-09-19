@@ -1,11 +1,11 @@
-// screens/ProfileScreen.tsx
-import React from 'react';
+import { Link } from 'expo-router';
 import { View, Text, StyleSheet } from 'react-native';
 
-export default function ProfileScreen() {
+export default function DetailsScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Profile Screen</Text>
+      <Text>Details</Text>
+      <Link href="/">View details</Link>
     </View>
   );
 }
@@ -15,9 +15,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
   },
 });
