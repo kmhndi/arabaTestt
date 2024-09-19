@@ -1,102 +1,91 @@
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { StyleSheet, Image, Platform } from 'react-native';
-
-import { Collapsible } from '@/components/Collapsible';
-import { ExternalLink } from '@/components/ExternalLink';
+import { Image, StyleSheet, FlatList, View, Dimensions } from 'react-native';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
-export default function TabTwoScreen() {
+const carts = [
+  { id: '1', name: 'Coffsee Cart', description: 'Best coffee in town', price: '50 QAR' },
+  { id: '2', name: 'Ice Cream Cart', description: 'Delicious ice cream', price: '40 QAR' },
+  { id: '3', name: 'Cupcake Cart', description: 'Tasty cupcakes', price: '30 QAR' },
+  { id: '4', name: 'Burger Cart', description: 'Juicy burgers', price: '60 QAR' },
+  { id: '5', name: 'Coffee Cart', description: 'Best coffee in town', price: '50 QAR' },
+  { id: '6', name: 'Ice Cream Cart', description: 'Delicious ice cream', price: '40 QAR' },
+  { id: '7', name: 'Cupcake Cart', description: 'Tasty cupcakes', price: '30 QAR' },
+  { id: '8', name: 'Burger Cart', description: 'Juicy burgers', price: '60 QAR' },
+  { id: '9', name: 'Ice Cream Cart', description: 'Delicious ice cream', price: '40 QAR' },
+  { id: '10', name: 'Cupcake Cart', description: 'Tasty cupcakes', price: '30 QAR' },
+  { id: '11', name: 'Burgfer Cart', description: 'Juicy burgers', price: '60 QAR' },
+];
+
+const windowWidth = Dimensions.get('window').width;
+
+export default function ExplorePage() {
   return (
     <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={<Ionicons size={310} name="code-slash" style={styles.headerImage} />}>
+      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
+      headerImage={
+        <Image
+          source={require('@/assets/images/partial-react-logo.png')}
+          style={styles.reactLogo}
+        />
+      }>
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Explore</ThemedText>
+        <ThemedText type="title" style={styles.blackText}>Explore Carts</ThemedText>
       </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
-        <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-        <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
-        </ThemedText>
-      </Collapsible>
-      <Collapsible title="Images">
-        <ThemedText>
-          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-          different screen densities
-        </ThemedText>
-        <Image source={require('@/assets/images/react-logo.png')} style={{ alignSelf: 'center' }} />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Custom fonts">
-        <ThemedText>
-          Open <ThemedText type="defaultSemiBold">app/_layout.tsx</ThemedText> to see how to load{' '}
-          <ThemedText style={{ fontFamily: 'SpaceMono' }}>
-            custom fonts such as this one.
-          </ThemedText>
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/versions/latest/sdk/font">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Light and dark mode components">
-        <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-          what the user's current color scheme is, and so you can adjust UI colors accordingly.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Animations">
-        <ThemedText>
-          This template includes an example of an animated component. The{' '}
-          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-          the powerful <ThemedText type="defaultSemiBold">react-native-reanimated</ThemedText> library
-          to create a waving hand animation.
-        </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-              component provides a parallax effect for the header image.
-            </ThemedText>
-          ),
-        })}
-      </Collapsible>
+
+      <FlatList
+        data={carts}
+        keyExtractor={(item) => item.id}
+        numColumns={2}
+        columnWrapperStyle={styles.row}
+        renderItem={({ item }) => (
+          <View style={styles.cartContainer}>
+            <ThemedText type="subtitle" style={styles.blackText}>{item.name}</ThemedText>
+            <ThemedText style={styles.blackText}>{item.description}</ThemedText>
+            <ThemedText type="defaultSemiBold" style={[styles.cartPrice, styles.blackText]}>{item.price}</ThemedText>
+          </View>
+        )}
+      />
     </ParallaxScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
-  },
   titleContainer: {
     flexDirection: 'row',
+    alignItems: 'center',
     gap: 8,
+    marginBottom: 20,
+  },
+  reactLogo: {
+    height: 178,
+    width: 290,
+    bottom: 0,
+    left: 0,
+    position: 'absolute',
+  },
+  row: {
+    justifyContent: 'space-around',
+    marginBottom: 15,
+  },
+  cartContainer: {
+    width: (windowWidth / 2) - 45,
+    height: (windowWidth / 2) - 45,
+    padding: 15,
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    marginBottom: 0,
+    marginHorizontal: 10,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  cartPrice: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginTop: 10,
+  },
+  blackText: {
+    color: '#000', // Set text color to black
   },
 });
